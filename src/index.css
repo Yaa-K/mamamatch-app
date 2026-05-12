@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Atkinson Hyperlegible Next", sans-serif;
+
+  --color-primary: #57006d;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #7b0099;
+  --color-on-primary-container: #ed97ff;
+  
+  --color-secondary-container: #ecdeee;
+  --color-on-secondary-container: #6b616e;
+  
+  --color-background: #fcf9f8;
+  --color-on-background: #1c1b1b;
+  
+  --color-surface: #fcf9f8;
+  --color-on-surface: #1c1b1b;
+  --color-on-surface-variant: #504251;
+  
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0edec;
+  --color-surface-container-high: #ebe7e7;
+  --color-surface-container-highest: #e5e2e1;
+  
+  --color-outline: #827282;
+  --color-outline-variant: #d3c1d2;
+  
+  --color-risk-low: #2e7d32;
+  --color-risk-medium: #ffb300;
+  --color-risk-high: #ba1a1a;
+  
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-background font-sans;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
