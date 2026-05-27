@@ -1,7 +1,7 @@
-import { GoogleGenAI, Type } from "@google/genai";
+import OpenAI from "openai";
 import { Language, RiskLevel, TriageResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const TRIAGE_SYSTEM_INSTRUCTION = `
 You are the MamaMatch GH Triage Assistant. Your job is to assess the health risk of pregnant women in Ghana through a friendly, empathetic conversation.
@@ -28,15 +28,21 @@ Do NOT provide a risk score until the checklist is complete OR a Red Flag is tri
 
 export async function getAmaResponse(messages: { role: 'user' | 'assistant'; content: string }[], language: Language) {
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: messages.map(m => (m.role === 'user' ? `User: ${m.content}` : `Ama: ${m.content}`)).join("\n"),
-      config: {
-        systemInstruction: `${TRIAGE_SYSTEM_INSTRUCTION}\nUser's preferred language: ${language}. Current step: The conversation is in progress. Ensure you follow the 5-area checklist.`,
-      }
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: `${TRIAGE_SYSTEM_INSTRUCTION}\nUser's preferred language: ${language}. Current step: The conversation is in progress. Ensure you follow the 5-area checklist.`
+        },
+        ...messages.map(m => ({
+          role: m.role === 'user' ? 'user' as const : 'assistant' as const,
+          content: m.content
+        }))
+      ]
     });
 
-    return response.text;
+    return response.choices[0].message.content || "";
   } catch (error) {
     console.error("Ama Chat Error:", error);
     throw error;
@@ -45,28 +51,23 @@ export async function getAmaResponse(messages: { role: 'user' | 'assistant'; con
 
 export async function getFinalTriageSummary(messages: { role: string; content: string }[], language: Language, riskLevel: RiskLevel): Promise<TriageResult> {
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: `Based on this triage conversation, generate a structured surgical summary for the patient card. Risk Level is already determined as ${riskLevel}.\n\nConversation:\n${messages.map(m => m.content).join("\n")}`,
-      config: {
-        systemInstruction: `You are an expert obstetrician summarizing a triage report for MamaMatch GH in ${language}.`,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            riskLevel: { type: Type.STRING, enum: [riskLevel] },
-            title: { type: Type.STRING },
-            description: { type: Type.STRING },
-            recommendations: { type: Type.ARRAY, items: { type: Type.STRING } },
-            concerns: { type: Type.ARRAY, items: { type: Type.STRING } },
-            nearestFacility: { type: Type.STRING }
-          },
-          required: ["riskLevel", "title", "description", "recommendations"]
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: `You are an expert obstetrician summarizing a triage report for MamaMatch GH in ${language}. Return a valid JSON object with the following structure: { "riskLevel": string, "title": string, "description": string, "recommendations": string[], "concerns": string[], "nearestFacility": string }`
+        },
+        {
+          role: "user",
+          content: `Based on this triage conversation, generate a structured surgical summary for the patient card. Risk Level is already determined as ${riskLevel}.\n\nConversation:\n${messages.map(m => m.content).join("\n")}`
         }
-      }
+      ],
+      response_format: { type: "json_object" }
     });
 
-    return JSON.parse(response.text);
+    const content = response.choices[0].message.content || "{}";
+    return JSON.parse(content);
   } catch (error) {
      console.error("Final Summary Error:", error);
      // Fallback
@@ -81,13 +82,18 @@ export async function getFinalTriageSummary(messages: { role: string; content: s
 
 export async function translateText(text: string, targetLanguage: Language) {
   if (targetLanguage === 'English') return text;
-  
+
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: `Translate the following health-related text to ${targetLanguage}. Keep it simple and supportive for someone with low literacy:\n\n${text}`
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: `Translate the following health-related text to ${targetLanguage}. Keep it simple and supportive for someone with low literacy:\n\n${text}`
+        }
+      ]
     });
-    return response.text;
+    return response.choices[0].message.content || text;
   } catch (error) {
     console.error("Translation Error:", error);
     return text;
