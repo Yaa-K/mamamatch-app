@@ -1,37 +1,27 @@
+
+export type Language = 'english' | 'twi' | 'ga';
+
 export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 
-export type Language = 'English' | 'Twi' | 'Ga';
-
-export interface Message {
-  id: string;
-  role: 'nurse' | 'user';
+export interface Question {
+  id: number;
   text: string;
-  timestamp: string;
+  type: 'choice' | 'number';
+  options?: { label: string; value: boolean | string | number }[];
+  concernValue?: any;
 }
 
-export interface Nurse {
+export interface ChatMessage {
   id: string;
-  name: string;
-  region: string;
-  languages: string[];
-  role: string;
-  experience: string;
-  available: boolean;
-  avatar: string;
+  sender: 'ama' | 'user';
+  text: string;
+  timestamp: Date;
 }
 
-export interface TriageResult {
-  riskLevel: RiskLevel;
-  title: string;
-  description: string;
-  recommendations: string[];
-  concerns?: string[];
-  nearestFacility?: string;
-}
-
-export interface RegionRiskCluster {
-  region: string;
-  highRiskCount: number;
-  medRiskCount: number;
-  lowRiskCount: number;
+export interface AppState {
+  screen: 'start' | 'language-select' | 'chat' | 'loading' | 'result' | 'nurse-match';
+  language: Language;
+  currentQuestionIndex: number;
+  answers: Record<number, any>;
+  riskLevel: RiskLevel | null;
 }

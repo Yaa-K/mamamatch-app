@@ -1,8 +1,6 @@
 {
   "name": "MamaMatch GH",
-  "description": "AI-Powered Maternal Care Network connecting midwives to at-risk pregnant women in Ghana.",
-  "requestFramePermissions": [
-    "geolocation"
-  ],
-  "majorCapabilities": []
+  "description": "A maternal health triage app for expectant mothers in Ghana, providing risk assessment and connection to care in English, Twi, and Ga.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
