@@ -1,6 +1,6 @@
 {
   "name": "MamaMatch GH",
   "description": "A maternal health triage app for expectant mothers in Ghana, providing risk assessment and connection to care in English, Twi, and Ga.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,26 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Be Vietnam Pro", sans-serif;
   
-  --color-primary-container: #7b0099;
-  --color-secondary-container: #ecdeee;
-  --color-surface: #fcf9f8;
-  --color-surface-container-low: #f6f3f2;
-  --color-on-surface: #1c1b1b;
-  --color-on-surface-variant: #504251;
-  --color-outline-variant: #d3c1d2;
-  --color-outline: #827282;
+  --color-primary: #795900;
+  --color-primary-container: #daa520;
+  --color-on-primary: #ffffff;
+  
+  --color-secondary: #bb001e;
+  --color-secondary-container: #e12531;
+  --color-on-secondary: #ffffff;
+  
+  --color-tertiary: #046d40;
+  --color-tertiary-container: #68bf8b;
+  --color-on-tertiary: #ffffff;
+  
+  --color-surface: #f9f9f9;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #4f4634;
+  
+  --color-outline: #817662;
+  --color-outline-variant: #d3c5ae;
+  
+  --color-background: #f9f9f9;
+  --color-on-background: #1a1c1c;
+  
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 @layer base {
   body {
-    @apply bg-[#fcf9f8] text-[#1c1b1b] antialiased overflow-x-hidden;
+    @apply bg-white text-[#1a1c1c] antialiased overflow-x-hidden font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
   }
 }
 
 .markdown-body {
-  @apply text-[#1c1b1b] leading-relaxed;
+  @apply text-[#1a1c1c] leading-relaxed;
 }
 
 /* Custom scrollbar for chat */
@@ -33,5 +54,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#d3c1d2] rounded-full;
+  @apply bg-[#d3c5ae] rounded-full;
 }
