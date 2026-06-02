@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -42,6 +43,10 @@ import { AppState, Language, ChatMessage, RiskLevel } from './types';
 =======
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+=======
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+>>>>>>> parent of b615fe7 (Update print statement to say 'Goodbye World')
 import {
   HeartPulse,
   ChevronRight,
@@ -1564,6 +1569,9 @@ export default function App() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
           className="flex-grow flex flex-col"
+<<<<<<< HEAD
+>>>>>>> parent of b615fe7 (Update print statement to say 'Goodbye World')
+=======
 >>>>>>> parent of b615fe7 (Update print statement to say 'Goodbye World')
         >
           {/* Cover accent pattern */}
