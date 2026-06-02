@@ -1,58 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Be Vietnam Pro", sans-serif;
-  
-  --color-primary: #795900;
-  --color-primary-container: #daa520;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Atkinson Hyperlegible Next", sans-serif;
+
+  --color-primary: #57006d;
   --color-on-primary: #ffffff;
+  --color-primary-container: #7b0099;
+  --color-on-primary-container: #ed97ff;
   
-  --color-secondary: #bb001e;
-  --color-secondary-container: #e12531;
-  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ecdeee;
+  --color-on-secondary-container: #6b616e;
   
-  --color-tertiary: #046d40;
-  --color-tertiary-container: #68bf8b;
-  --color-on-tertiary: #ffffff;
+  --color-background: #fcf9f8;
+  --color-on-background: #1c1b1b;
   
-  --color-surface: #f9f9f9;
-  --color-on-surface: #1a1c1c;
-  --color-on-surface-variant: #4f4634;
+  --color-surface: #fcf9f8;
+  --color-on-surface: #1c1b1b;
+  --color-on-surface-variant: #504251;
   
-  --color-outline: #817662;
-  --color-outline-variant: #d3c5ae;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0edec;
+  --color-surface-container-high: #ebe7e7;
+  --color-surface-container-highest: #e5e2e1;
   
-  --color-background: #f9f9f9;
-  --color-on-background: #1a1c1c;
+  --color-outline: #827282;
+  --color-outline-variant: #d3c1d2;
   
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --color-risk-low: #2e7d32;
+  --color-risk-medium: #ffb300;
+  --color-risk-high: #ba1a1a;
+  
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
 }
 
 @layer base {
   body {
-    @apply bg-white text-[#1a1c1c] antialiased overflow-x-hidden font-sans;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+    @apply bg-surface text-on-background font-sans;
   }
 }
 
-.markdown-body {
-  @apply text-[#1a1c1c] leading-relaxed;
-}
-
-/* Custom scrollbar for chat */
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-[#d3c5ae] rounded-full;
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }

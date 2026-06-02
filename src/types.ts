@@ -1,65 +1,37 @@
-
-export type Language = 'english' | 'twi' | 'ga';
-
 export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 
-export interface Question {
-  id: number;
-  text: string;
-  type: 'choice' | 'number';
-  options?: { label: string; value: boolean | string | number }[];
-  concernValue?: any;
-}
+export type Language = 'English' | 'Twi' | 'Ga';
 
-export interface ChatMessage {
+export interface Message {
   id: string;
-  sender: 'ama' | 'user';
+  role: 'nurse' | 'user';
   text: string;
-  timestamp: Date;
-}
-
-export interface DetailedAnalysis {
-  summary: string;
-  riskExplanation: string;
-  pregnancyTips: string[];
-  nextSteps: string[];
-}
-
-export interface AppState {
-  screen: 'start' | 'language-select' | 'chat' | 'loading' | 'result' | 'nurse-match';
-  language: Language;
-  currentQuestionIndex: number;
-  answers: Record<number, any>;
-  riskLevel: RiskLevel | null;
-  detailedAnalysis?: DetailedAnalysis | null;
+  timestamp: string;
 }
 
 export interface Nurse {
   id: string;
   name: string;
-  licenseNumber: string;
   region: string;
   languages: string[];
-  availability: 'Available' | 'Busy' | 'Off';
-  whatsapp: string;
-  status: 'PENDING' | 'VERIFIED';
+  role: string;
+  experience: string;
+  available: boolean;
   avatar: string;
 }
 
-export interface PatientCheckIn {
-  id: string;
-  name: string;
-  phone: string;
-  language: Language;
-  gestationalWeeks: number;
-  region: string;
+export interface TriageResult {
   riskLevel: RiskLevel;
-  answers: Record<string, any>;
-  summary: string;
-  riskExplanation: string;
-  pregnancyTips: string[];
-  nextSteps: string[];
-  timestamp: string;
-  status: 'pending' | 'completed';
-  matchedNurseId: string | null;
+  title: string;
+  description: string;
+  recommendations: string[];
+  concerns?: string[];
+  nearestFacility?: string;
+}
+
+export interface RegionRiskCluster {
+  region: string;
+  highRiskCount: number;
+  medRiskCount: number;
+  lowRiskCount: number;
 }
